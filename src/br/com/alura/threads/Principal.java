@@ -3,11 +3,19 @@ package br.com.alura.threads;
 public class Principal {
 
     public static void main(String[] args) throws InterruptedException {
-        ImprimeString imprimeString = new ImprimeString("Pegati, caramba");
+        String nome = "(Dan|Chad)(\\s|\\w)*";
 
-        Thread thread = new Thread(imprimeString);
-        thread.start();
+        Thread threadAssinaturas1  = new Thread(new TarefaBuscaTextual("assinaturas1.txt", nome));
+        Thread threadAssinaturas2  = new Thread(new TarefaBuscaTextual("assinaturas2.txt", nome));
+        Thread threadAutores  = new Thread(new TarefaBuscaTextual("autores.txt", nome));
 
-        Thread.sleep(60000);
+        Thread threadAtual = Thread.currentThread();
+        long id = threadAtual.getId();
+        System.out.println("Id da thread: " + id);
+
+
+        threadAssinaturas1.start();
+        threadAssinaturas2.start();
+        threadAutores.start();
     }
 }
